@@ -1,0 +1,26 @@
+[tool.poetry]
+name = "django-websocket-notification"
+version = "1.0.0"
+description = "A Django package to handle notifications using Django Channels and WebSockets."
+authors = ["Marcos Gabarda <hey@marcosgabarda.com>"]
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = "^3.7"
+django = "^3.0.7"
+channels = "^2.4.0"
+django-model-utils = "^4.0.0"
+djangorestframework = "^3.11.0"
+django-snitch = "^1.7.1"
+
+[tool.poetry.dev-dependencies]
+pylint = "^2.5.3"
+pytest = "^5.4.3"
+black = "^19.10b0"
+factory_boy = "^2.12.0"
+django-test-plus = "^1.4.0"
+pytest-django = "^3.9.0"
+
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"

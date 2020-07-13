@@ -1,0 +1,40 @@
+<!-- chat/templates/chat/room.html -->
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <title>Websocket Notifications Listener</title>
+</head>
+
+<body>
+  <textarea id="notifications-log" cols="100" rows="20"></textarea><br>
+  Listener for "{{ group.code }}" notifications
+  {{ group.code|json_script:"group" }}
+  <script>
+    const group = JSON.parse(document.getElementById('group').textContent);
+    const socket = new WebSocket(
+      'wss://'
+      + window.location.host
+      + '/ws/notifications/'
+      + group
+      + '/'
+    );
+    socket.addEventListener('open', function (event) {
+      console.log("Open event", event)
+    });
+    socket.addEventListener('close', function (event) {
+      console.log("Close event", event)
+    });
+    socket.addEventListener('error', function (event) {
+      console.log("Error event", event)
+    });
+    socket.addEventListener('message', function (event) {
+      console.log("Message event", event)
+      const data = JSON.parse(event.data);
+      document.querySelector('#notifications-log').value += (JSON.stringify(data.payload) + '\n');
+    });
+  </script>
+</body>
+
+</html>
