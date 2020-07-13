@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "django-websocket-notification"
+name = "django-websocket-notifications"
 version = "1.0.0"
 description = "A Django package to handle notifications using Django Channels and WebSockets."
 readme = "README.rst"
