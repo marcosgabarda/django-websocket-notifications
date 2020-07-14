@@ -4,3 +4,74 @@ Django Websocket Notifications
 
 A Django application to deliver user notifications made with 
 `django-snitch <https://github.com/marcosgabarda/django-snitch>`_ using WebSockets.
+
+.. image:: https://travis-ci.org/marcosgabarda/django-websocket-notifications.svg?branch=master
+    :target: https://travis-ci.org/marcosgabarda/django-snitch
+
+.. image:: https://img.shields.io/badge/code_style-black-000000.svg
+   :target: https://github.com/ambv/black
+
+
+Quick start
+-----------
+
+This applications works using django-channels, so, you need to integrate this with 
+your project before to integrate django-websocket-notifications. So, to make the 
+quick start as quick and simple as possible, we've made the following assumptions:
+
+* You already have integrated django-channels
+* You are using a channel layer, like Redis
+* You have a `routing.py` file
+
+
+**1** Install using pip:
+
+.. code-block:: bash
+
+    pip install django-websocket-notifications
+
+**2** Add "websocket_notifications" to your INSTALLED_APPS settings like this:
+
+.. code-block:: python
+
+    INSTALLED_APPS += ('websocket_notifications',)
+
+**3** Add the routing patterns to your `routing.py` file:
+
+.. code-block:: python
+
+    from channels.auth import AuthMiddlewareStack
+    from channels.routing import ProtocolTypeRouter, URLRouter
+    from websocket_notifications.routing import websocket_urlpatterns
+
+
+    application = ProtocolTypeRouter(
+        {"websocket": AuthMiddlewareStack(URLRouter(websocket_urlpatterns)),}
+    )
+
+**4** (Optional) In order to test the integration, you can add the following view to your `urls.py` file to be able to access to a testing view:
+
+.. code-block:: python
+
+    urlpatterns += [
+        path(
+            "websocket-notifications/",
+            include(
+                "websocket_notifications.urls",
+                namespace="websocket_notifications",
+            ),
+        ),
+    ]
+
+Now, you can access to `/websocket-notifications/listener/` to check the integration.
+
+**5** Integrate with `django-snitch`:
+
+.. code-block:: python
+
+    from websocket_notifications.snitch.backends import WebSocketNotificationBackend
+
+    @snitch.register(EVENT)
+    class MyEventHandler(snitch.EventHandler):
+        ephemeral = True
+        notification_backends = [WebSocketNotificationBackend]
