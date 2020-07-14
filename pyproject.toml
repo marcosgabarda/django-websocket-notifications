@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "django-websocket-notifications"
-version = "1.0.1"
+version = "1.0.2"
 description = "A Django package to handle notifications using Django Channels and WebSockets."
 readme = "README.rst"
 authors = ["Marcos Gabarda <hey@marcosgabarda.com>"]

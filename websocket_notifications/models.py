@@ -1,5 +1,4 @@
 from asgiref.sync import async_to_sync
-from channels.layers import get_channel_layer
 from django.conf import settings
 from django.db import models
 from django.utils.translation import gettext_lazy as _
@@ -36,6 +35,8 @@ class NotificationGroup(TimeStampedModel):
 
     def send(self, payload):
         """Sends the payload to the user."""
+        from channels.layers import get_channel_layer
+
         channel_layer = get_channel_layer()
         async_to_sync(channel_layer.group_send)(
             self.code, {"type": MESSAGE_TYPE, "payload": payload}
