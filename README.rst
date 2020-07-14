@@ -22,7 +22,7 @@ quick start as quick and simple as possible, we've made the following assumption
 * You already have integrated django-channels
 * You are using a channel layer, like Redis
 * You have a `routing.py` file
-
+* Your project uses DRF to deliver a RESTful API
 
 **1** Install using pip:
 
@@ -65,11 +65,22 @@ quick start as quick and simple as possible, we've made the following assumption
 
 Now, you can access to `/websocket-notifications/listener/` to check the integration.
 
-**5** Integrate with `django-snitch`:
+**5** Add the ViewSet to the DRF router:
+
+.. code-block:: python
+
+    from websocket_notifications.api.rest_framework import NotificationGroupViewSet
+
+
+    router = routers.DefaultRouter()
+    router.register("websocket-notifications/groups", viewset=NotificationGroupViewSet)
+
+**6** Integrate with `django-snitch`:
 
 .. code-block:: python
 
     from websocket_notifications.snitch.backends import WebSocketNotificationBackend
+
 
     @snitch.register(EVENT)
     class MyEventHandler(snitch.EventHandler):
