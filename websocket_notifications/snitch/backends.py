@@ -9,7 +9,8 @@ class WebSocketNotificationBackend(AbstractBackend):
 
     @staticmethod
     def _content_type_serializer(content_type):
-        return f"{content_type.app_label}.{content_type.model}"
+        if content_type:
+            return f"{content_type.app_label}.{content_type.model}"
 
     def payload(self):
         """Creates the payload of the message."""
