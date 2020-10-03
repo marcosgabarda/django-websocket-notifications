@@ -1,12 +1,9 @@
 import hashlib
 import random
 import time
-from typing import Dict, Type
+from typing import Dict
 
 from django.apps import apps
-from django.contrib.auth import get_user_model
-
-User = get_user_model()
 
 
 def generate_random_code(seed: str) -> str:
@@ -16,7 +13,7 @@ def generate_random_code(seed: str) -> str:
     ).hexdigest()
 
 
-def send_to_user(user: Type[User], payload: Dict) -> None:
+def send_to_user(user, payload: Dict) -> None:
     """Gets the notifications group and sends the payload."""
     NotificationGroup = apps.get_model("websocket_notifications.NotificationGroup")
     notification_group, _ = NotificationGroup.objects.get_or_create_for_user(user)
