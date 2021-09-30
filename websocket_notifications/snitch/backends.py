@@ -1,18 +1,23 @@
+from typing import TYPE_CHECKING, Dict
+
 from snitch.backends import AbstractBackend
 from snitch.settings import ENABLED_SEND_NOTIFICATIONS
 
 from websocket_notifications.helpers import send_to_user
+
+if TYPE_CHECKING:
+    from django.contrib.contenttypes.models import ContentType
 
 
 class WebSocketNotificationBackend(AbstractBackend):
     """A backend class to send websocket notifications."""
 
     @staticmethod
-    def _content_type_serializer(content_type):
+    def _content_type_serializer(content_type: "ContentType"):
         if content_type:
             return f"{content_type.app_label}.{content_type.model}"
 
-    def payload(self):
+    def payload(self) -> Dict:
         """Creates the payload of the message."""
         return {
             "notification": self.notification.id if self.notification else None,
@@ -33,7 +38,7 @@ class WebSocketNotificationBackend(AbstractBackend):
             },
         }
 
-    def send(self):
+    def send(self) -> None:
         """Send message."""
         if ENABLED_SEND_NOTIFICATIONS:
             send_to_user(self.user, self.payload())

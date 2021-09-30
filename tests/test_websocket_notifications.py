@@ -1,5 +1,5 @@
 from test_plus import APITestCase
-from test_plus.test import TestCase, APITestCase
+from test_plus.test import APITestCase, TestCase
 
 from tests.factories import UserFactory
 from websocket_notifications.models import NotificationGroup

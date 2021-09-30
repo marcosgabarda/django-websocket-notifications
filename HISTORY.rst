@@ -3,6 +3,12 @@
 History
 -------
 
+1.1.0 (2021-9-30)
++++++++++++++++++
+
+* Updated dependencies with django-snitch
+* More typing
+
 1.0.3 (2020-7-17)
 +++++++++++++++++
 

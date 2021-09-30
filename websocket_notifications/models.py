@@ -1,3 +1,5 @@
+from typing import Dict
+
 from asgiref.sync import async_to_sync
 from django.conf import settings
 from django.db import models
@@ -29,11 +31,11 @@ class NotificationGroup(TimeStampedModel):
         verbose_name_plural = _("notification groups")
         ordering = ["-created"]
 
-    def generate_random_code(self):
+    def generate_random_code(self) -> str:
         """Generates a random code using the user ID and the current time."""
         return generate_random_code(self.user.pk)
 
-    def send(self, payload):
+    def send(self, payload: Dict) -> None:
         """Sends the payload to the user."""
         from channels.layers import get_channel_layer
 
@@ -42,7 +44,7 @@ class NotificationGroup(TimeStampedModel):
             self.code, {"type": MESSAGE_TYPE, "payload": payload}
         )
 
-    def clean(self):
+    def clean(self) -> None:
         # Generates the code if it doesn't exists
         if not self.code:
             self.code = self.generate_random_code()

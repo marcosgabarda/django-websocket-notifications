@@ -1,4 +1,5 @@
 import json
+from typing import Dict
 
 from channels.db import database_sync_to_async
 from channels.generic.websocket import AsyncWebsocketConsumer
@@ -10,7 +11,7 @@ class NotificationConsumer(AsyncWebsocketConsumer):
     """Consumer for sending notification to the client."""
 
     @database_sync_to_async
-    def get_notification_group(self, code):
+    def get_notification_group(self, code: str):
         return NotificationGroup.objects.filter(code=code).first()
 
     async def connect(self):
@@ -25,7 +26,7 @@ class NotificationConsumer(AsyncWebsocketConsumer):
         """On disconnect, exit from the group."""
         await self.channel_layer.group_discard(self.code, self.channel_name)
 
-    async def notification_message(self, event):
+    async def notification_message(self, event: Dict):
         """When received a message from a notification."""
         payload = event["payload"]
         await self.send(text_data=json.dumps({"payload": payload}))

@@ -1,6 +1,5 @@
 from django.conf import settings
 
-
 # Needed to build and publish
 # ------------------------------------------------------------------------------
 SECRET_KEY = "websocket_notifications"
