@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "django-websocket-notifications"
-version = "1.1.0"
+version = "1.2.0"
 description = "A Django package to handle notifications using Django Channels and WebSockets."
 readme = "README.rst"
 authors = ["Marcos Gabarda <hey@marcosgabarda.com>"]
@@ -17,23 +17,23 @@ classifiers = [
 ]
 
 [tool.poetry.dependencies]
-python = "^3.7"
-django = "^3.0.7"
-channels = "^2.4.0"
-django-model-utils = "^4.0.0"
-djangorestframework = "^3.11.0"
-django-snitch = "^2.1.0"
+python = ">=3.8,<4.0"
+django = ">=4.0.0"
+channels = ">=2.4.0"
+django-model-utils = ">=4.0.0"
+djangorestframework = ">=3.11.0"
+django-snitch = ">=2.1.0"
 
 [tool.poetry.dev-dependencies]
+pylint = "^2.5.3"
 pytest = "^5.4.3"
+black = "^22.3.0"
 factory_boy = "^2.12.0"
 django-test-plus = "^1.4.0"
 pytest-django = "^3.9.0"
 pytest-cov = "^2.10.0"
-mypy = "^0.910"
-isort = "^5.9.3"
-black = "^21.9b0"
-pylint = "^2.11.1"
+isort = "^5.10.1"
+mypy = "^0.961"
 
 
 [tool.isort]
