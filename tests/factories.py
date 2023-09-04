@@ -2,13 +2,13 @@ from typing import Any, Sequence
 
 import factory
 from django.contrib.auth import get_user_model
-from factory import DjangoModelFactory, Faker, post_generation
+from factory import Faker, post_generation
+from factory.django import DjangoModelFactory
 
 from websocket_notifications.models import NotificationGroup
 
 
 class UserFactory(DjangoModelFactory):
-
     username = Faker("user_name")
     first_name = Faker("first_name")
     last_name = Faker("last_name")
@@ -22,7 +22,7 @@ class UserFactory(DjangoModelFactory):
             digits=True,
             upper_case=True,
             lower_case=True,
-        ).generate(extra_kwargs={})
+        ).evaluate(None, None, {"locale": "en-us"})
         self.set_password(password)
 
     class Meta:
@@ -30,7 +30,7 @@ class UserFactory(DjangoModelFactory):
         django_get_or_create = ["username"]
 
 
-class NotificationGroupFactory(factory.DjangoModelFactory):
+class NotificationGroupFactory(DjangoModelFactory):
     user = factory.SubFactory(UserFactory)
 
     class Meta:

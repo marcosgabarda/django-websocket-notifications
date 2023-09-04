@@ -1,23 +1,14 @@
-==============================
-Django Websocket Notifications
-==============================
+.. Django Websocket Notification documentation master file, created by
+   sphinx-quickstart on Wed Feb  5 10:19:59 2020.
+   You can adapt this file completely to your liking, but it should at least
+   contain the root `toctree` directive.
+
+==============================================
+Django Websocket Notifications's documentation
+==============================================
 
 A Django application to deliver user notifications made with 
 `django-snitch <https://github.com/marcosgabarda/django-snitch>`_ using WebSockets.
-
-.. image:: https://img.shields.io/pypi/v/django-websocket-notifications
-    :target: https://pypi.org/project/django-websocket-notifications/
-    :alt: PyPI
-
-.. image:: https://codecov.io/gh/marcosgabarda/django-websocket-notifications/branch/main/graph/badge.svg?token=ZGLEIQ0ODW
-    :target: https://codecov.io/gh/marcosgabarda/django-websocket-notifications
-
-.. image:: https://img.shields.io/badge/code_style-black-000000.svg
-    :target: https://github.com/ambv/black
-
-.. image:: https://readthedocs.org/projects/django-websocket-notifications/badge/?version=latest
-    :target: https://django-websocket-notifications.readthedocs.io/en/latest/?badge=latest
-    :alt: Documentation Status
 
 Quick start
 -----------

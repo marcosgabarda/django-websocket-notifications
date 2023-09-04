@@ -6,7 +6,6 @@ from websocket_notifications.models import NotificationGroup
 
 
 class NotificationGroupAPITest(APITestCase):
-
     user_factory = UserFactory
 
     def setUp(self):
@@ -33,7 +32,6 @@ class NotificationGroupAPITest(APITestCase):
 
 
 class ListenerTest(TestCase):
-
     user_factory = UserFactory
 
     def setUp(self):
