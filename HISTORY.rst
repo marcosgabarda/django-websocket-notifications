@@ -6,7 +6,7 @@ History
 1.3.0 (2023-09-04)
 +++++++++++++++++++
 
-*
+* Chore: Update dependencies, added GitHub Actions and docs.
 
 1.2.0 (2022-9-6)
 +++++++++++++++++
