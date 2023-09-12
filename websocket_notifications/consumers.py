@@ -3,8 +3,7 @@ from typing import Dict
 
 from channels.db import database_sync_to_async
 from channels.generic.websocket import AsyncWebsocketConsumer
-
-from websocket_notifications.models import NotificationGroup
+from django.apps import apps
 
 
 class NotificationConsumer(AsyncWebsocketConsumer):
@@ -12,6 +11,7 @@ class NotificationConsumer(AsyncWebsocketConsumer):
 
     @database_sync_to_async
     def get_notification_group(self, code: str):
+        NotificationGroup = apps.get_model("websocket_notifications.NotificationGroup")
         return NotificationGroup.objects.filter(code=code).first()
 
     async def connect(self):

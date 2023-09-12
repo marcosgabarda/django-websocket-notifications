@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "django-websocket-notifications"
-version = "1.3.0"
+version = "1.3.1"
 description = "A Django package to handle notifications using Django Channels and WebSockets."
 readme = "README.rst"
 authors = ["Marcos Gabarda <hey@marcosgabarda.com>"]
@@ -9,9 +9,9 @@ homepage = "https://github.com/marcosgabarda/django-websocket-notifications"
 packages = [{ include = "websocket_notifications" }]
 
 classifiers = [
-    "Environment :: Web Environment",
-    "Framework :: Django",
-    "License :: OSI Approved :: MIT License",
+  "Environment :: Web Environment",
+  "Framework :: Django",
+  "License :: OSI Approved :: MIT License",
 ]
 
 [tool.poetry.dependencies]

@@ -13,7 +13,7 @@ from websocket_notifications.settings import MESSAGE_TYPE
 
 class NotificationGroup(TimeStampedModel):
     """This model is used to save an unique code for each user to use to connect for
-    listenign notifications.
+    listening notifications.
     """
 
     user = models.OneToOneField(
