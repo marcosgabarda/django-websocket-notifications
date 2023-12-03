@@ -6,7 +6,7 @@ from websocket_notifications.helpers import send_message
 
 if TYPE_CHECKING:
     from django.contrib.contenttypes.models import ContentType
-    from django.db import models
+    from django.db.models import Model
     from snitch.handlers import EventHandler
     from snitch.models import Event, Notification
 
@@ -18,7 +18,7 @@ class WebSocketNotificationBackend:
         self,
         notification: Optional["Notification"] = None,
         event: Optional["Event"] = None,
-        user: Optional[models.Model] = None,
+        user: Optional["Model"] = None,
     ):
         assert notification is not None or (
             event is not None and user is not None
@@ -26,7 +26,7 @@ class WebSocketNotificationBackend:
 
         self.notification: Optional["Notification"] = notification
         self.event: Optional["Event"] = event
-        self.user: Optional[models.Model] = user
+        self.user: Optional["Model"] = user
         if self.notification:
             self.handler: "EventHandler" = self.notification.handler()
             self.user = self.notification.content_object
