@@ -1,4 +1,3 @@
-from django.contrib.auth import get_user_model
 from django.contrib.contenttypes.models import ContentType
 from test_plus import APITestCase
 from test_plus.test import APITestCase, TestCase
