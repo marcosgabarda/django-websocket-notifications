@@ -17,11 +17,9 @@ class NotificationGroupViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
 
     def create(self, request, *args, **kwargs):
-        instance = self.queryset.model.objects.filter(user=self.request.user).first()
-        if not instance:
-            instance, _ = self.queryset.model.objects.get_or_create_for_user(
-                user=self.request.user
-            )
+        instance, _ = self.queryset.model.objects.get_or_create_for_object(
+            obj=self.request.user
+        )
         serializer = self.get_serializer(instance, data=request.data)
         serializer.is_valid(raise_exception=True)
         headers = self.get_success_headers(serializer.data)
