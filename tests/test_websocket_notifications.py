@@ -6,8 +6,6 @@ from test_plus.test import APITestCase, TestCase
 from tests.factories import UserFactory
 from websocket_notifications.models import NotificationGroup
 
-User = get_user_model()
-
 
 class NotificationGroupAPITest(APITestCase):
     user_factory = UserFactory
@@ -16,7 +14,7 @@ class NotificationGroupAPITest(APITestCase):
         self.user = self.make_user()
 
     def test_create_notification_group(self):
-        user_content_type = ContentType.objects.get_for_model(User)
+        user_content_type = ContentType.objects.get_for_model(self.user.__class__)
         self.assertEqual(
             0,
             NotificationGroup.objects.filter(
