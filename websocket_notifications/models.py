@@ -1,3 +1,4 @@
+import uuid
 from typing import Dict
 
 from asgiref.sync import async_to_sync
@@ -17,10 +18,10 @@ class NotificationGroup(TimeStampedModel):
     connect for listening notifications.
     """
 
-    code = models.CharField(_("code"), max_length=256, unique=True, blank=True)
+    code = models.UUIDField(_("code"), default=uuid.uuid4)
 
     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
-    object_id = models.PositiveIntegerField()
+    object_id = models.CharField(max_length=256)
     content_object = GenericForeignKey("content_type", "object_id")
 
     objects = NotificationGroupQuerySet.as_manager()
@@ -30,10 +31,6 @@ class NotificationGroup(TimeStampedModel):
         verbose_name_plural = _("notification groups")
         ordering = ["-created"]
 
-    def generate_random_code(self) -> str:
-        """Generates a random code using the object ID and the current time."""
-        return generate_random_code(self.object_id)
-
     def send(self, payload: Dict) -> None:
         """Sends the payload to the user or device."""
         from channels.layers import get_channel_layer
@@ -42,11 +39,6 @@ class NotificationGroup(TimeStampedModel):
         async_to_sync(channel_layer.group_send)(
             self.code, {"type": MESSAGE_TYPE, "payload": payload}
         )
-
-    def clean(self) -> None:
-        # Generates the code if it doesn't exists
-        if not self.code:
-            self.code = self.generate_random_code()
 
     def save(self, *args, **kwargs):
         self.clean()
