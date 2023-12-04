@@ -26,13 +26,16 @@ class Migration(migrations.Migration):
             model_name="notificationgroup",
             name="content_type",
             field=models.ForeignKey(
-                on_delete=models.deletion.CASCADE, to="contenttypes.ContentType"
+                on_delete=models.deletion.CASCADE,
+                to="contenttypes.ContentType",
+                null=True,
+                blank=True,
             ),
         ),
         migrations.AddField(
             model_name="notificationgroup",
             name="object_id",
-            field=models.PositiveIntegerField(),
+            field=models.PositiveIntegerField(null=True, blank=True),
         ),
         migrations.RunPython(
             transform_user_to_generic_object, reverse_code=migrations.RunPython.noop
