@@ -1,4 +1,3 @@
-import uuid
 from typing import Dict
 
 from asgiref.sync import async_to_sync
@@ -18,7 +17,7 @@ class NotificationGroup(TimeStampedModel):
     connect for listening notifications.
     """
 
-    code = models.UUIDField(_("code"), default=uuid.uuid4)
+    code = models.CharField(_("code"), max_length=256, unique=True, blank=True)
 
     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
     object_id = models.CharField(max_length=256)
@@ -39,6 +38,11 @@ class NotificationGroup(TimeStampedModel):
         async_to_sync(channel_layer.group_send)(
             self.code, {"type": MESSAGE_TYPE, "payload": payload}
         )
+
+    def clean(self) -> None:
+        # Generates the code if it doesn't exists
+        if not self.code:
+            self.code = generate_random_code(self.object_id)
 
     def save(self, *args, **kwargs):
         self.clean()

@@ -13,11 +13,6 @@ class Migration(migrations.Migration):
     operations = [
         migrations.AlterField(
             model_name="notificationgroup",
-            name="code",
-            field=models.UUIDField(default=uuid.uuid4, verbose_name="code"),
-        ),
-        migrations.AlterField(
-            model_name="notificationgroup",
             name="object_id",
             field=models.CharField(max_length=256),
         ),
