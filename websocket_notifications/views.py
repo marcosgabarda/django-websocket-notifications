@@ -12,6 +12,6 @@ class NotificationsListenerView(LoginRequiredMixin, View):
 
     def get(self, request):
         """Creates the channel on the fly."""
-        group, _ = NotificationGroup.objects.get_or_create_for_user(user=request.user)
+        group, _ = NotificationGroup.objects.get_or_create_for_object(obj=request.user)
         context = {"group": group}
         return render(request, self.template_name, context=context)

@@ -4,6 +4,7 @@ import time
 from typing import Dict
 
 from django.apps import apps
+from django.db import models
 
 
 def generate_random_code(seed: str) -> str:
@@ -13,8 +14,8 @@ def generate_random_code(seed: str) -> str:
     ).hexdigest()
 
 
-def send_to_user(user, payload: Dict) -> None:
+def send_message(obj: models.Model, payload: Dict) -> None:
     """Gets the notifications group and sends the payload."""
     NotificationGroup = apps.get_model("websocket_notifications.NotificationGroup")
-    notification_group, _ = NotificationGroup.objects.get_or_create_for_user(user)
+    notification_group, _ = NotificationGroup.objects.get_or_create_for_object(obj)
     notification_group.send(payload=payload)

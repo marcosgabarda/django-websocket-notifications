@@ -5,5 +5,5 @@ from websocket_notifications.models import NotificationGroup
 
 @admin.register(NotificationGroup)
 class NotificationGroupAdmin(admin.ModelAdmin):
-    list_display = ["id", "user", "code", "created"]
-    search_fields = ["code", "user__email"]
+    list_display = ["id", "content_type", "object_id", "code", "created"]
+    search_fields = ["code"]
